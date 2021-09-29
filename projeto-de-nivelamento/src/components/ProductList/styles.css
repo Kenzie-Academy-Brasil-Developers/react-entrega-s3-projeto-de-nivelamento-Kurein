@@ -1,0 +1,4 @@
+.mainCardDiv {
+  display: flex;
+  flex-wrap: wrap;
+}

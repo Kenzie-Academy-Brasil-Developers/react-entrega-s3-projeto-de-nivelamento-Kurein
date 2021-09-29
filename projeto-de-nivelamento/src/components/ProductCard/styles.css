@@ -1,0 +1,23 @@
+.cardDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  margin: 0 auto;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+@media only screen and (min-width: 768px) {
+  .cardDiv {
+    width: 45%;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .cardDiv {
+    width: 30%;
+  }
+}
