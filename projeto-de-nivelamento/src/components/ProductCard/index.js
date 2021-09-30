@@ -1,7 +1,15 @@
 import "./styles.css";
 
-function ProductCard({ product }) {
+function ProductCard({ product, products, setProducts }) {
   const { code, description, discount, name, price } = product;
+
+  function removeItem(code) {
+    const filteredProducts = products.filter((elt) => {
+      return elt.code !== code;
+    });
+
+    setProducts(filteredProducts);
+  }
 
   return (
     <div className="cardDiv">
@@ -10,6 +18,7 @@ function ProductCard({ product }) {
       <h4>Preço: {price}</h4>
       <h4>Desconto: {discount}</h4>
       <p>{description}</p>
+      <button onClick={() => removeItem(code)}>Remover</button>
     </div>
   );
 }

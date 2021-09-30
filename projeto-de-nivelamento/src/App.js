@@ -12,7 +12,7 @@ function App() {
     <div className="App">
       <TotalValue products={products} />
       <Form products={products} setProducts={setProducts} />
-      <ProductList products={products} />
+      <ProductList products={products} setProducts={setProducts} />
     </div>
   );
 }
