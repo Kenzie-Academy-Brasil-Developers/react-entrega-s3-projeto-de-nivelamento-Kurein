@@ -1,42 +1,52 @@
-import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import "./styles.css";
+import { useState } from "react";
 
 function Form({ setProducts, products }) {
-  const formSchema = yup.object().shape({
-    code: yup.number().typeError("Inserir apenas números"),
-    name: yup.string().required("Campo Obrigatório"),
-    description: yup.string().required("Campo Obrigatório"),
-    price: yup.number().typeError("Inserir apenas números"),
-    discount: yup.number().typeError("Inserir apenas números"),
-  });
+  const [code, setCode] = useState("");
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const [discount, setDiscount] = useState("");
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(formSchema),
-  });
+  function onSubmitFunction(e) {
+    e.preventDefault();
 
-  function onSubmitFunction(data) {
-    setProducts([...products, data]);
+    const obj = { code, name, description, price, discount };
+    obj.code = Number(obj.code);
+    obj.price = Number(obj.price);
+    obj.discount = Number(obj.discount);
+
+    setProducts([...products, obj]);
   }
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmitFunction)}>
-        <input placeholder="Código" {...register("code")} />
-        {errors.code?.message}
-        <input placeholder="Nome" {...register("name")} />
-        {errors.name?.message}
-        <input placeholder="Descrição" {...register("description")} />
-        {errors.description?.message}
-        <input placeholder="Preço" {...register("price")} />
-        {errors.price?.message}
-        <input placeholder="Desconto" {...register("discount")} />
-        {errors.discount?.message}
+      <form onSubmit={onSubmitFunction}>
+        <input
+          placeholder="Código"
+          value={code}
+          onChange={(e) => setCode(e.target.value)}
+        />
+        <input
+          placeholder="Nome"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          placeholder="Descrição"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
+        <input
+          placeholder="Preço"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+        <input
+          placeholder="Desconto"
+          value={discount}
+          onChange={(e) => setDiscount(e.target.value)}
+        />
         <button type="submit">Adicionar Produto</button>
       </form>
     </div>

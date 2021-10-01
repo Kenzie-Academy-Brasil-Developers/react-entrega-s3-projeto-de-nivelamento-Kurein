@@ -1,26 +1,44 @@
 import "./styles.css";
 
-function ProductCard({ product, products, setProducts }) {
+function ProductCard({ product, setCart, cart, isCart }) {
   const { code, description, discount, name, price } = product;
 
-  function removeItem(code) {
-    const filteredProducts = products.filter((elt) => {
+  function cartAddItem() {
+    setCart([...cart, product]);
+  }
+
+  function cartRemoveItem(code) {
+    const filteredCart = cart.filter((elt) => {
       return elt.code !== code;
     });
 
-    setProducts(filteredProducts);
+    setCart(filteredCart);
   }
 
-  return (
-    <div className="cardDiv">
-      <h1>Nome: {name}</h1>
-      <h2>Código: {code}</h2>
-      <h4>Preço: {price}</h4>
-      <h4>Desconto: {discount}</h4>
-      <p>{description}</p>
-      <button onClick={() => removeItem(code)}>Remover</button>
-    </div>
-  );
+  if (!isCart) {
+    return (
+      <div className="cardDiv">
+        <h1>Nome: {name}</h1>
+        <h2>Código: {code}</h2>
+        <h2>Preço: {price}</h2>
+        <h4>Desconto: {discount}</h4>
+        <p>{description}</p>
+        <button onClick={cartAddItem}>Adicionar ao Carrinho</button>
+      </div>
+    );
+  }
+  if (isCart) {
+    return (
+      <div className="cardDiv">
+        <h1>Nome: {name}</h1>
+        <h2>Preço: {price}</h2>
+        <h4>Desconto: {discount}</h4>
+        <button onClick={() => cartRemoveItem(code)}>
+          Remover do Carrinho
+        </button>
+      </div>
+    );
+  }
 }
 
 export default ProductCard;
